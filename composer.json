@@ -1,0 +1,20 @@
+{
+    "name": "calderon_melendez/netflips",
+    "description": "Security Project",
+    "authors": [
+        {
+            "name": "Luis Calderon",
+            "email": "00082318@uca.edu.sv"
+        },
+        {
+            "name": "Rene Melendez",
+            "email": "00174118@uca.edu.sv"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "app\\": "./" }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.2"
+    }
+}
