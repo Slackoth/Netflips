@@ -1,6 +1,7 @@
 <?php
 
 use app\core\Application;
+use app\controllers\AuthController;
 use Dotenv\Dotenv;
 
 require_once __DIR__ . "/../vendor/autoload.php";
@@ -18,4 +19,7 @@ $config = [
 
 $app = Application::getInstance(dirname(__DIR__), $config);
 
+$app->router->get("/register", [AuthController::class, "registerGet"]);
+
+$app->run();
 ?>

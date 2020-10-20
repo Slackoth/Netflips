@@ -20,7 +20,7 @@ class View {
         return str_replace("{{content}}", $viewContent, $layoutContent);
     }
 
-    private function viewContent($view, $params) {
+    protected function viewContent($view, $params) {
         foreach($params as $key => $value)
             $$key = $value;
         
@@ -30,7 +30,7 @@ class View {
         return ob_get_clean();
     }
 
-    private function layoutContent() {
+    protected function layoutContent() {
         ob_start();
         include_once Application::$root_dir . "/views/layouts/" . $this->layout . ".php";
 
