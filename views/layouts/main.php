@@ -1,3 +1,4 @@
+<?php use app\core\Application; ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,6 +26,11 @@
     </nav>
      -->
     <div class="container">
+        <?php if(Application::getInstance()->session->getFlashMessage("success")): ?>
+            <div class="alert alert-success">
+                <?= Application::getInstance()->session->getFlashMessage("success") ?>
+            </div>
+        <?php endif; ?>
         {{content}}
     </div>
 

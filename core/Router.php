@@ -1,6 +1,8 @@
 <?php 
 namespace app\core;
 
+use app\core\exceptions\NotFoundException;
+
 class Router {
     private $routes = [];
     public $request;
@@ -24,12 +26,10 @@ class Router {
         $path = $this->request->getPath();
         $callback = $this->routes[$method][$path] ?? false;
 
-        if(!$callback) {
-            echo "Not found!";
-            return false;
-        }
-
-        else if(is_string($callback))
+        if(!$callback) 
+            throw new NotFoundException();
+            
+        else if(is_string($callback)) 
             return Application::getInstance()->view->renderView($callback);
 
         else if(is_array($callback)) {

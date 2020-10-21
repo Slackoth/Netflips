@@ -9,18 +9,22 @@ class Form {
         switch($method) {
             case "post":
             case "get":
-                echo sprintf('<form action="%s" method="%s>', $action, $method);
+                echo sprintf('<form action="%s" method="%s">', $action, $method);
                 break;
             default:
                 echo "Only POST or GET method allowed.";
                 return NULL;
         }
-         
+        
         return new Form();
     }
 
     public static function end() {
         return "</form>";
+    }
+
+    public function inputField($model, $attr) {
+        return new InputField($model, $attr);
     }
 }
 ?>

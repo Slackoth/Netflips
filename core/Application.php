@@ -12,6 +12,7 @@ class Application {
     public Request $request;
     public Response $response;
     public Controller $controller;
+    public Session $session;
 
     public function __construct($rootPath, $config) {
         self::$root_dir = $rootPath;
@@ -19,6 +20,7 @@ class Application {
         $this->request = new Request();
         $this->response = new Response();
         $this->router = new Router($this->request, $this->response);
+        $this->session = new Session();
         
         try {
             $this->db = new Database($config["db"]);
@@ -38,8 +40,11 @@ class Application {
         try {
             echo $this->router->resolve();
         }
-        catch(\Exception $e) {
-            echo $e;
+        catch(Exception $e) {
+            $this->view->setTitle($e->getCode());
+            echo $this->view->renderView("error", [
+                "exception" => $e
+            ]);
         }
     }
 }
