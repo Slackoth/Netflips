@@ -6,6 +6,7 @@ use app\controllers\HomeController;
 use Dotenv\Dotenv;
 
 require_once __DIR__ . "/../vendor/autoload.php";
+//include __DIR__ . "/../resources/js";
 
 $dotenv = Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
@@ -20,6 +21,8 @@ $config = [
 
 $app = Application::getInstance(dirname(__DIR__), $config);
 
+$app->router->get("/selectplan", [AuthController::class, "selectPlanGet"]);
+$app->router->post("/selectplan", [AuthController::class, "selectPlanPost"]);
 $app->router->get("/register", [AuthController::class, "registerGet"]);
 $app->router->post("/register", [AuthController::class, "registerPost"]);
 

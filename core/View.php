@@ -21,8 +21,10 @@ class View {
     }
 
     protected function viewContent($view, $params) {
-        foreach($params as $key => $value)
+        foreach($params as $key => $value) {
             $$key = $value;
+            //var_dump($$key);
+        }
         
         ob_start();
         include_once Application::$root_dir . "/views/$view.php";
