@@ -42,6 +42,7 @@ class Application {
         }
         catch(Exception $e) {
             $this->view->setTitle($e->getCode());
+            $this->response->setStatusCode(404);
             echo $this->view->renderView("error", [
                 "exception" => $e
             ]);
