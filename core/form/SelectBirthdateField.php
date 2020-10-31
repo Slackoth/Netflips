@@ -9,7 +9,7 @@ class SelectBirthdateField extends BaseField {
     
     public function __construct($formModel, $attr) {
         $this->days = range(1, 31);
-        $this->years = range(1900, 2020);
+        $this->years = range(2020, 1900);
         parent::__construct($formModel, $attr);
     }
 
@@ -23,18 +23,18 @@ class SelectBirthdateField extends BaseField {
                 </div>
             </div>
             <div class="col">
-            <div class="form-group">
-                <select class="custom-select" name="month">
-                    %s
-                </select>
-        </div>
+                <div class="form-group">
+                    <select class="custom-select" name="month">
+                        %s
+                    </select>
+                </div>
             </div>
             <div class="col">
-            <div class="form-group">
-                <select class="custom-select" name="year">
-                    %s
-                </select>
-        </div>
+                <div class="form-group">
+                    <select class="custom-select" name="year">
+                        %s
+                    </select>
+                </div>
             </div>',
             $this->renderDaysMonths($this->days),
             $this->renderDaysMonths($this->months),
@@ -68,12 +68,10 @@ class SelectBirthdateField extends BaseField {
         return sprintf(
             '<label>%s</label>
             <div class="row">
-                %s
+                    %s
             </div>
-            <div class="form-group">
-                <div class="text-danger">
-                    <small>%s</small>
-                </div>
+            <div class="text-danger">
+                <small>%s</small>
             </div>
             ',
             $this->formModel->getLabel($this->attribute),

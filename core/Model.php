@@ -15,12 +15,10 @@ abstract class Model {
             VALUES(". implode(",", $params) .")";
         $stmt =  Application::getInstance()->db::$pdo->prepare($sql);
 
-        foreach($data as $key => $value) {
-            echo "<pre> key: $key </pre>";
-            echo "<pre> value: $value </pre>";
-            //$stmt->bindValue(":$key", $value);
-        }
+        foreach($data as $key => $value) 
+            $stmt->bindValue(":$key", $value);
 
+        $stmt->execute();
         return true;
     }
 

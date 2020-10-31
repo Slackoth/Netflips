@@ -27,25 +27,29 @@ class AuthController extends Controller {
         $registerForm->loadData($reqBody);
         
         if($registerForm->validateData()) {
+            //unset confirmPassword here?
+            unset($reqBody["confirmPassword"]);
             $reqBody["password"] = $registerForm->hashPassword($reqBody["password"]);
             //string to int: $int = +$stringNum;
             $typeId = +Application::getInstance()->session->getAttribute("type");
             $subsModel = new SubscriptionModel();
+            $userModel = new UserModel();
             $subscription = $subsModel->createSubscription($typeId);
-            $user = new UserModel();
+
+            echo "<pre>" . var_dump($reqBody) . "</pre>";
 
             Application::getInstance()->session->unsetAttribute("type");
 
             try {
                 $subsModel->save($subscription);
+                $userModel->save($reqBody);
             } catch (\PDOException $e) {
                 throw $e;
             }
             
             Application::getInstance()->session->setFlashMessage("success",
                 "La registración ha sido exitosa.");
-            
-            //Application::getInstance()->response->redirect("/home");
+            Application::getInstance()->response->redirect("/home");
         }
         else {
             return $this->render("register", "Netflips", "auth", [

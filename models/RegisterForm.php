@@ -64,14 +64,16 @@ class RegisterForm extends FormModel {
     }
 
     public function addBirthdateKey($body) {
-        $birthdate = $body["day"] . "/" . $body["month"] . "/" . $body["year"];
-        $body["birthdate"] = $birthdate;
+        //$birthdate = $body["day"] . "/" . $body["month"] . "/" . $body["year"];
+        $birthdate = $body["year"] . "-" . $body["month"] . "-" . $body["day"];
+        $birthdate = ["birthdate" => $birthdate];
         
         unset($body["day"]);
         unset($body["month"]);
         unset($body["year"]);
         
-        return $body;
+        return array_slice($body, 0, 3, true) + $birthdate + 
+            array_slice($body, 3, count($body) - 1, true);
     }
 }
 ?>

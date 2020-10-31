@@ -97,8 +97,8 @@ abstract class FormModel {
                 break;
             
             case self::RULE_VALID_DATE:
-                $date = explode("/", $value);
-                checkdate($date[1], $date[0], $date[2]) ? true : $this->addErrorForRule($attr, self::RULE_VALID_DATE);
+                $date = explode("-", $value);
+                checkdate($date[1], $date[2], $date[0]) ? true : $this->addErrorForRule($attr, self::RULE_VALID_DATE);
                 break;
 
             // case self::RULE_UNIQUE:

@@ -11,9 +11,9 @@
     </div>
     <?php echo $form->inputField($formModel, "email") ?>
     <?php //echo $form->inputField($formModel, "country") ?>
+    <?= $form->selectBirthdateField($formModel, "birthdate") ?> 
     <?php echo $form->inputField($formModel, "password")->setType("password") ?>
     <?php echo $form->inputField($formModel, "confirmPassword")->setType("password") ?>
-    <?= $form->selectBirthdateField($formModel, "birthdate") ?> 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary my-2">Submit</button>
 <?= Form::end(); ?>
 <script src="/assets/js/register.js"></script>
