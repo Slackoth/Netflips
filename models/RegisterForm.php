@@ -9,11 +9,9 @@ class RegisterForm extends FormModel {
     public $email = "";
     public $password = "";
     public $confirmPassword = "";
-    public $country = "";
+    public $birthdate = "";
     // public $cardNumber = "";
     // public $verificationCode = "";
-    // public $month = "";
-    // public $year = "";
 
     public function rules() {
         return [
@@ -25,7 +23,6 @@ class RegisterForm extends FormModel {
                 //     "class" => self::class
                 // ]
             ],
-            "country" => [self::RULE_REQUIRED],
             "password" => [self::RULE_REQUIRED, 
                 [
                     self::RULE_MIN_LEN, 
@@ -41,18 +38,19 @@ class RegisterForm extends FormModel {
                     self::RULE_MATCH,
                     "match" => "password"
                 ]
-            ]
+            ],
+            "birthdate" => [self::RULE_VALID_DATE]
         ];
     }
 
     public function labels() {
         return [
-            "firstname" => "Firstname",
-            "lastname" => "Lastname",
-            "email" => "Email",
-            "country" => "Country",
-            "password" => "Password",
-            "confirmPassword" => "Confirm Password",
+            "firstname" => "Nombres",
+            "lastname" => "Apellidos",
+            "email" => "Correo",
+            "password" => "Contraseña",
+            "confirmPassword" => "Confirmar contraseña",
+            "birthdate" => "Fecha de nacimiento"
         ];
     }
 
@@ -63,6 +61,17 @@ class RegisterForm extends FormModel {
         */
         $randomChar = substr(md5(hrtime()[0]), rand(0, 31), 1);
         return password_hash($passwd, PASSWORD_DEFAULT) . "$randomChar";
+    }
+
+    public function addBirthdateKey($body) {
+        $birthdate = $body["day"] . "/" . $body["month"] . "/" . $body["year"];
+        $body["birthdate"] = $birthdate;
+        
+        unset($body["day"]);
+        unset($body["month"]);
+        unset($body["year"]);
+        
+        return $body;
     }
 }
 ?>

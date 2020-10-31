@@ -82,4 +82,7 @@ ALTER TABLE payment_subscription ADD CONSTRAINT FK_SUBSCRIPTION
 FOREIGN KEY (subscription_id) REFERENCES subscription(id)
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 
+SELECT * FROM plan p ;
+SELECT * FROM subscription s ;
+SELECT * FROM state s ;
 

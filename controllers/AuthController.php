@@ -22,20 +22,25 @@ class AuthController extends Controller {
 
     public function registerPost(Request $req, Response $res) {
         $registerForm = new RegisterForm();
-        $reqBody = $req->getRequestBody();
-
+        $reqBody = $registerForm->addBirthdateKey($req->getRequestBody());
+        
         $registerForm->loadData($reqBody);
         
         if($registerForm->validateData()) {
             $reqBody["password"] = $registerForm->hashPassword($reqBody["password"]);
             //string to int: $int = +$stringNum;
             $typeId = +Application::getInstance()->session->getAttribute("type");
-            //$reqBody["type"] = $idToInt;
             $subsModel = new SubscriptionModel();
             $subscription = $subsModel->createSubscription($typeId);
             $user = new UserModel();
 
-            $subsModel->save($subscription);
+            Application::getInstance()->session->unsetAttribute("type");
+
+            try {
+                $subsModel->save($subscription);
+            } catch (\PDOException $e) {
+                throw $e;
+            }
             
             Application::getInstance()->session->setFlashMessage("success",
                 "La registración ha sido exitosa.");

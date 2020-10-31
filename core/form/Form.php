@@ -26,5 +26,9 @@ class Form {
     public function inputField($model, $attr) {
         return new InputField($model, $attr);
     }
+
+    public function selectBirthdateField($model, $attr) {
+        return new SelectBirthdateField($model, $attr);
+    }
 }
 ?>
