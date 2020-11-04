@@ -1,6 +1,8 @@
 <?php
 namespace app\core;
 
+use Dotenv\Parser\Value;
+
 class Session {
     protected const FLASH_KEY = "flash_messages";
 
@@ -37,7 +39,12 @@ class Session {
         return $_SESSION[$key] ?? false;
     }
 
-    public function getSession() {}
+    public function setUser($user) {
+        foreach($user as $key => $value) 
+            $this->setAttribute("user_$key", $value);
+        
+        $this->setAttribute("loggedIn", true);
+    }
 
     public function __destruct() {
         $flashMessages = $_SESSION[self::FLASH_KEY] ?? [];
