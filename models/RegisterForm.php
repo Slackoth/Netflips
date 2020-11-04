@@ -17,11 +17,11 @@ class RegisterForm extends FormModel {
         return [
             "firstname" => [self::RULE_REQUIRED],
             "lastname" => [self::RULE_REQUIRED],
-            "email" => [self::RULE_REQUIRED, self::RULE_EMAIL
-                // [
-                //     self::RULE_UNIQUE,
-                //     "class" => self::class
-                // ]
+            "email" => [self::RULE_REQUIRED, self::RULE_EMAIL,
+                [
+                    self::RULE_UNIQUE,
+                    "tablename" => "user"
+                ],
             ],
             "password" => [self::RULE_REQUIRED, 
                 [

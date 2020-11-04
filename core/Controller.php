@@ -7,5 +7,9 @@ class Controller {
         Application::getInstance()->view->setLayout($layout);
         return Application::getInstance()->view->renderView($view,$params);
     }
+
+    public function isLoggedIn() {
+        return isset($_SESSION["loggedIn"]);
+    }
 }
 ?>

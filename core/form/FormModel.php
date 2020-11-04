@@ -1,6 +1,8 @@
 <?php 
 namespace app\core\form;
 
+use app\core\Application;
+
 abstract class FormModel {
     public const RULE_REQUIRED = "required";
     public const RULE_EMAIL = "email";
@@ -101,20 +103,12 @@ abstract class FormModel {
                 checkdate($date[1], $date[2], $date[0]) ? true : $this->addErrorForRule($attr, self::RULE_VALID_DATE);
                 break;
 
-            // case self::RULE_UNIQUE:
-            //     $className = $rule["class"];
-            //     $uniqueAttr = $rule["attribute"] ?? $attr;
-            //     $tableName = $className::tableName();
+            case self::RULE_UNIQUE:
+                $tablename = $rule["tablename"];
+                $result = Application::getInstance()->db->findOne($tablename, [$attr => $value], [$attr]);
 
-            //     $statement = Application::$APP->db->prepare("SELECT * FROM $tableName 
-            //     WHERE $uniqueAttr = :$uniqueAttr");
-                
-            //     $statement->bindValue(":$uniqueAttr", $value);
-            //     $statement->execute();
-            //     $record = $statement->fetchObject();
-
-            //     ($record == NULL) ? true : $this->addErrorForRule($attr, self::RULE_UNIQUE, ["field" => $this->getLabel($attribute)]);
-            //     break;
+                empty($result) ? true : $this->addErrorForRule($attr, self::RULE_UNIQUE, ["field" => $this->getLabel($attr)]);
+                break;
         }
     }
 }

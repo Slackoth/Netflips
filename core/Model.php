@@ -35,5 +35,24 @@ abstract class Model {
         //return $json;
         return $results;
     }
+
+    public function findOne($conditionFields, $params = []) { //$conditions = [db_field => value_to_search]
+        $tablename = $this->tablename();
+        $fields = empty($params) ? "*" : implode(",", $params);
+        $keys = array_keys($conditionFields);
+        $conditions = array_map(fn($key) => "$key = :$key", $keys);
+        $where = implode("AND ", $conditions);
+        $sql = "SELECT $fields FROM $tablename WHERE $where;";
+
+        $stmt = Application::getInstance()->db::$pdo->prepare($sql);
+
+        foreach($conditionFields as $key => $value)
+            $stmt->bindValue(":$key", $value);
+
+        $stmt->execute();
+
+        $results = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $results;
+    }
 }
 ?>
