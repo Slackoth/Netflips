@@ -2,6 +2,7 @@
 namespace app\core\form;
 
 class Form {
+
     public static function begin($attributes = []) {
         $action = $attributes["action"] ?? "";
         $method = $attributes["method"] ?? "post";

@@ -6,8 +6,13 @@ abstract class BaseField {
     public $attribute;
 
     public function __construct($formModel, $attribute) {
+       // echo var_dump('gola');
+        //echo var_dump($attribute);
         $this->formModel = $formModel;
         $this->attribute = $attribute;
+        //echo var_dump($this->attribute);
+        //echo var_dump('gola2');
+        //echo var_dump($this->formModel);
     }
 
     public abstract function renderInput(); 
@@ -21,10 +26,13 @@ abstract class BaseField {
                     %s
                 </div>
             </div>',
-            $this->attribute, 
+            $this->attribute,
             $this->formModel->getLabel($this->attribute),
             $this->renderInput(),
+
             $this->formModel->getFirstError($this->attribute)
+
+
         );
     }
 }

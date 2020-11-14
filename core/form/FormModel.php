@@ -24,6 +24,7 @@ abstract class FormModel {
     }
 
     public function getLabel($attr) {
+        //echo var_dump($attr);
         return $this->labels()[$attr] ?? $attr;
     }
 

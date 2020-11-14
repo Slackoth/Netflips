@@ -11,6 +11,7 @@ use app\models\RegisterForm;
 use app\models\SubscriptionModel;
 use app\models\TypeModel;
 use app\models\UserModel;
+use app\models\LoginForm;
 
 class AuthController extends Controller {
     public function __construct() {
@@ -96,5 +97,29 @@ class AuthController extends Controller {
         $res->setStatusCode(200);
         return "Ok";
     }
+
+    public function login(Request $req, Response $res) {
+
+        $loginForm = new LoginForm();
+
+        if ($req->getMethod() === 'post') {
+            echo var_dump($req->getRequestBody()['email']);
+            $loginForm->loadData($req->getRequestBody());
+            echo var_dump($loginForm->email);
+            if ( $loginForm->login()) {
+                Application::$app->response->redirect('/');
+                return;
+            }
+
+           return 'OK';
+        }
+        //$this->setLayout('auth');
+        return $this->render('login','Log In', 'auth', [
+            'formModel' => $loginForm
+        ]);
+    }
+
+
+
 }
 ?>
