@@ -1,5 +1,6 @@
 <?php
 
+use app\controllers\AdminClientsController;
 use app\core\Application;
 use app\controllers\AuthController;
 use app\controllers\HomeController;
@@ -30,6 +31,8 @@ $app->router->get("/register", [AuthController::class, "registerGet"]);
 $app->router->post("/register", [AuthController::class, "registerPost"]);
 
 $app->router->get("/home", [HomeController::class, "homeGet"]);
+
+$app->router->get("/clients", [AdminClientsController::class, "clientsGet"]);
 
 $app->run();
 ?>

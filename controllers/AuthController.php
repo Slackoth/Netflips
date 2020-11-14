@@ -26,7 +26,9 @@ class AuthController extends Controller {
             Application::getInstance()->response->redirect("/selectplan");
             exit;
         }
+        
         $registerForm = new RegisterForm();
+        
         $res->setStatusCode(200);
         return $this->render("register", "Netflips", "auth", [
             "formModel" => $registerForm
@@ -93,6 +95,7 @@ class AuthController extends Controller {
 
     public function selectPlanPost(Request $req, Response $res) {
         $type = $req->getRequestBody()["type"];
+        
         Application::getInstance()->session->setAttribute("type",$type);
         $res->setStatusCode(200);
         return "Ok";
