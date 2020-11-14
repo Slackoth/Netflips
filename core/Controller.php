@@ -11,5 +11,9 @@ class Controller {
     public function isLoggedIn() {
         return isset($_SESSION["loggedIn"]);
     }
+
+    public function isAdmin() {
+        return isset($_SESSION["isAdmin"]);
+    }
 }
 ?>

@@ -22,11 +22,20 @@ abstract class Model {
         return true;
     }
 
-    public function getAll($params = []) {
+    public function getAll($params = [], $conditionFields = []) {
         $tablename = $this->tablename();
         $fields = empty($params) ? "*" : implode(",", $params);
-        $sql = "SELECT $fields FROM $tablename;";
+        $where = "";
+
+        if(!empty($conditionFields)) {
+            $where = "WHERE " . Application::getInstance()->db->createAndOrSyntax($conditionFields);
+        }
+        
+        $sql = "SELECT $fields FROM $tablename $where;";
         $stmt = Application::getInstance()->db::$pdo->prepare($sql);
+
+        foreach($conditionFields as $key => $value)
+            $stmt->bindValue(":$key", $value);
 
         $stmt->execute();
 
@@ -39,9 +48,10 @@ abstract class Model {
     public function findOne($conditionFields, $params = []) { //$conditions = [db_field => value_to_search]
         $tablename = $this->tablename();
         $fields = empty($params) ? "*" : implode(",", $params);
-        $keys = array_keys($conditionFields);
-        $conditions = array_map(fn($key) => "$key = :$key", $keys);
-        $where = implode("AND ", $conditions);
+        // $keys = array_keys($conditionFields);
+        // $conditions = array_map(fn($key) => "$key = :$key", $keys);
+        // $where = implode(" AND ", $conditions);
+        $where = Application::getInstance()->db->createAndOrSyntax($conditionFields);
         $sql = "SELECT $fields FROM $tablename WHERE $where;";
 
         $stmt = Application::getInstance()->db::$pdo->prepare($sql);

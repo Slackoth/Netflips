@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS user(
 	email VARCHAR(254) NOT NULL,
 	birthdate DATE NOT NULL,
 	password TEXT NOT NULL,
-	is_admin BOOLEAN NOT NULL,
+	is_admin BOOLEAN NOT NULL DEFAULT false,
 	PRIMARY KEY(id)
 ); 
 
