@@ -114,7 +114,7 @@ class AuthController extends Controller {
                 return;
             }
 
-           return 'OK';
+            Application::getInstance()->response->redirect("/home");
         }
         //$this->setLayout('auth');
         return $this->render('login','Log In', 'auth', [
