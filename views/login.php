@@ -6,8 +6,8 @@
 ?>
 
 <h1>Login</h1>
-
 <?php $form = Form::begin() ?>
+
     <?php echo $form->inputField($formModel, "email") ?>
     <?php echo $form->inputField($formModel, "password")->setType("password") ?>
 

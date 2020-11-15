@@ -5,6 +5,7 @@ use app\core\Application;
 use app\core\Controller;
 use app\core\Request;
 use app\core\Response;
+use app\core\Session;
 use app\models\PaymentModel;
 use app\models\PlanModel;
 use app\models\RegisterForm;
@@ -12,13 +13,16 @@ use app\models\SubscriptionModel;
 use app\models\TypeModel;
 use app\models\UserModel;
 use app\models\LoginForm;
+use http\Client\Curl\User;
 
 class AuthController extends Controller {
     public function __construct() {
         if($this->isLoggedIn()) {
+            error_log('jeje');
             Application::getInstance()->response->redirect("/home");
             exit;
         }
+
     }
 
     public function registerGet(Request $req, Response $res) {
@@ -58,6 +62,7 @@ class AuthController extends Controller {
             try {
                 $subsInfo = $subsModel->save($subscription);
                 $userInfo = $userModel->save($reqBody);
+                //var_dump("userinfo", $userInfo);
                 $paymentModel->createPaymentSubscription(+$userInfo["id"], 
                     +$subsInfo["id"], +$subsInfo["type_id"]);
                 
@@ -93,6 +98,7 @@ class AuthController extends Controller {
         ]);
     }
 
+
     public function selectPlanPost(Request $req, Response $res) {
         $type = $req->getRequestBody()["type"];
         
@@ -123,6 +129,28 @@ class AuthController extends Controller {
     }
 
 
+    public function logout(Request $request, Response $response){
+        error_log('data');
 
+        //session_start();
+
+        // Destruir todas las variables de sesión.
+        $_SESSION = array();
+
+
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
+
+
+        // Finalmente, destruir la sesión.
+        session_destroy();
+        Application::getInstance()->response->redirect("/login");
+
+    }
 }
 ?>

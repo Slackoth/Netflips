@@ -24,6 +24,8 @@ $app = Application::getInstance(dirname(__DIR__), $config);
 
 $app->router->get("/login", [AuthController::class, "login"]);
 $app->router->post("/login", [AuthController::class, "login"]);
+$app->router->get("/logout",[AuthController::class, 'logout']);
+//$app->router->post("/logout",[AuthController::class, 'logout']);
 
 $app->router->get("/selectplan", [AuthController::class, "selectPlanGet"]);
 $app->router->post("/selectplan", [AuthController::class, "selectPlanPost"]);

@@ -30,7 +30,17 @@
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout<span class="sr-only">(current)</span></a>
+                        <?php
+
+                        if(isset($_POST['Logout'])) {
+                            session_destroy();
+                            Application::getInstance()->response->redirect('/login');
+
+                        }
+                        ?>
+                        <form method="post">
+                        <input type="submit" name="Logout"
+                               class="btn btn-light" value="Logout" />
                     </li>
                 </ul>
             <?php endif ?>
