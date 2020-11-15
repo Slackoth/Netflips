@@ -23,7 +23,7 @@ class Database {
         $where = $this->createAndOrSyntax($conditionFields);
         $sql = "SELECT $fields FROM $tablename WHERE $where;";
         $stmt = self::$pdo->prepare($sql);
-        //var_dump($sql);
+
 
         foreach($conditionFields as $key => $value)
             $stmt->bindValue(":$key", $value);
@@ -52,7 +52,7 @@ class Database {
         ON s.id = ps.subscription_id INNER JOIN plan p2 
         ON s.plan_id = p2.id INNER JOIN type t
         ON s.type_id = t.id WHERE p.expiration_date >= :current';
-        $stmt = $this::$pdo->prepare($sql);
+        $stmt = self::$pdo->prepare($sql);
 
         $stmt->bindValue(":current", date("y-m-d"));
         $stmt->execute();
