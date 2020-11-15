@@ -23,11 +23,6 @@
                     </li>
                 </ul>
             <?php else: ?>
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/clients">Clients <span class="sr-only">(current)</span></a>
-                    </li>
-                </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <?php
@@ -35,6 +30,7 @@
                         if(isset($_POST['Logout'])) {
                             session_destroy();
                             Application::getInstance()->response->redirect('/login');
+
                         }
                         ?>
                         <form method="post">
@@ -47,11 +43,6 @@
     </nav>
      
     <div class="container">
-        <?php if(Application::getInstance()->session->getFlashMessage("success")): ?>
-            <div class="alert alert-success">
-                <?= Application::getInstance()->session->getFlashMessage("success") ?>
-            </div>
-        <?php endif; ?>
         {{content}}
     </div>
 

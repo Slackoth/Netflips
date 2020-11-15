@@ -7,9 +7,9 @@ use app\core\Response;
 use app\models\UserModel;
 
 class AdminClientsController extends AdminController {
-    // public function __construct() {
-    //     parent::__construct();
-    // }
+    public function __construct() {
+        parent::__construct();
+    }
 
     public function clientsGet(Request $req, Response $res) {
         $results = Application::getInstance()->db->getClients();

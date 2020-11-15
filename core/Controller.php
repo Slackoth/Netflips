@@ -13,7 +13,7 @@ class Controller {
     }
 
     public function isAdmin() {
-        return isset($_SESSION["isAdmin"]);
+        return +$_SESSION["user_is_admin"] === 1;
     }
 }
 ?>

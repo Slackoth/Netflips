@@ -59,10 +59,11 @@ class LoginForm  extends  FormModel
             var_dump('Password is incorrect');
             return false;
         }
-        $userinfo=Application::getInstance()->db->findOne('user',['email' => $this->email], ['id', 'firstname', 'lastname']);
+        $userinfo=Application::getInstance()->db->findOne('user',['email' => $this->email], ['id', 'firstname', 'lastname', "is_admin"]);
         //var_dump("userinfo: : : ", $userinfo);
         Application::getInstance()->session->setUser($userinfo);
                 //return Application::->login($user);
+        return true;
     }
 
 

@@ -18,8 +18,9 @@ use http\Client\Curl\User;
 class AuthController extends Controller {
     public function __construct() {
         if($this->isLoggedIn()) {
-            error_log('jeje');
-            Application::getInstance()->response->redirect("/home");
+            $redirect = +$_SESSION["user_is_admin"]
+                === 1 ? "clients" : "home";
+            Application::getInstance()->response->redirect("/$redirect");
             exit;
         }
 
@@ -112,22 +113,17 @@ class AuthController extends Controller {
         $loginForm = new LoginForm();
 
         if ($req->getMethod() === 'post') {
-            echo var_dump($req->getRequestBody()['email']);
             $loginForm->loadData($req->getRequestBody());
-            echo var_dump($loginForm->email);
-            if ( $loginForm->login()) {
-                Application::$app->response->redirect('/');
+
+            if ($loginForm->login()) {
+                Application::getInstance()->response->redirect("/login");
                 return;
             }
-
-            Application::getInstance()->response->redirect("/home");
         }
-        //$this->setLayout('auth');
+
         return $this->render('login','Log In', 'auth', [
             'formModel' => $loginForm
         ]);
     }
-
-
 }
 ?>

@@ -1,7 +1,11 @@
 <?php 
 namespace app\core;
 
+use app\core\exceptions\DatabaseException;
+use app\core\exceptions\ForbiddenAccessException;
+use app\core\exceptions\NotFoundException;
 use Exception;
+use PDOException;
 
 class Application {
     public static string $root_dir;
@@ -24,7 +28,8 @@ class Application {
         
         try {
             $this->db = new Database($config["db"]);
-        } catch (\Exception $e) {
+        } 
+        catch (Exception $e) {
             echo $e;
         }
     }
@@ -40,10 +45,27 @@ class Application {
         try {
             echo $this->router->resolve();
         }
+        catch(ForbiddenAccessException $e) {
+            $this->view->setTitle($e->getCode());
+            $this->view->setLayout("_error");
+            $this->response->setStatusCode($e->getCode());
+            echo $this->view->renderView("error",  [
+                "exception" => $e
+            ]);
+        }
+        catch(NotFoundException $e) {
+            $this->view->setTitle($e->getCode());
+            $this->view->setLayout("_error");
+            $this->response->setStatusCode($e->getCode());
+            echo $this->view->renderView("error",  [
+                "exception" => $e
+            ]);
+        }
         catch(Exception $e) {
             $this->view->setTitle($e->getCode());
-            $this->response->setStatusCode(404);
-            echo $this->view->renderView("error", [
+            $this->view->setLayout("_error");
+            $this->response->setStatusCode($e->getCode());
+            echo $this->view->renderView("error",  [
                 "exception" => $e
             ]);
         }
