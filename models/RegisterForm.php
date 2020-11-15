@@ -60,6 +60,8 @@ class RegisterForm extends FormModel {
         md5() -> Calculate the md5 hash of a string
         */
         $randomChar = substr(md5(hrtime()[0]), rand(0, 31), 1);
+        //var_dump(password_hash($passwd, PASSWORD_DEFAULT) . "$randomChar");
+        //var_dump('random: ',$randomChar);
         return password_hash($passwd, PASSWORD_DEFAULT) . "$randomChar";
     }
 

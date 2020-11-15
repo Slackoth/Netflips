@@ -19,10 +19,11 @@ class Database {
         $fields = empty($params) ? "*" : implode(",", $params);
         // $keys = array_keys($conditionFields);
         // $conditions = array_map(fn($key) => "$key = :$key", $keys);
-        // $where = implode(" AND ", $conditions);
+         //$where = implode(" AND ", $conditionFields);
         $where = $this->createAndOrSyntax($conditionFields);
         $sql = "SELECT $fields FROM $tablename WHERE $where;";
-        $stmt = $this::$pdo->prepare($sql);
+        $stmt = self::$pdo->prepare($sql);
+        //var_dump($sql);
 
         foreach($conditionFields as $key => $value)
             $stmt->bindValue(":$key", $value);

@@ -43,18 +43,24 @@ class LoginForm  extends  FormModel
 
     public function login()
     {
-        $user = Database::findOne( 'user',['email' => $this->email]);
-        echo var_dump($user);
+
+        $user = Application::getInstance()->db->findOne( 'user',['email' => $this->email], ['password']);
+        //echo var_dump('user',$user['password']);
+        //echo  var_dump('data',$this->password);
+        //echo var_dump(substr($user['password'],0,strlen($user['password'])-1));
+        $pswd_substr=substr($user['password'],0,strlen($user['password'])-1);
+
         if (!$user) {
-            $this->addError('email', 'User does not exist with this email address');
+            //$this->addError('email', 'User does not exist with this email address');
             return false;
         }
-        if (!password_verify($this->password, $user->password)) {
-            $this->addError('password', 'Password is incorrect');
+        if (!password_verify($this->password, $pswd_substr)) {
+            //$this->addError('password', 'Password is incorrect');
+            var_dump('Password is incorrect');
             return false;
         }
 
-        return Application::$app->login($user);
+                //return Application::->login($user);
     }
 
 
