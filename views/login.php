@@ -11,5 +11,6 @@
     <?php echo $form->inputField($formModel, "email") ?>
     <?php echo $form->inputField($formModel, "password")->setType("password") ?>
 
-    <button type="submit" class="btn btn-primary my-2">Submit</button>
+    <button type="submit" class="btn btn-primary my-2">Log In</button>
+    <a href="/register">No tienes una cuenta? Registrate</a>
 <?php Form::end() ?>
