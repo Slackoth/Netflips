@@ -11,6 +11,7 @@ abstract class FormModel {
     public const RULE_MATCH = "match";
     public const RULE_UNIQUE = "unique";
     public const RULE_VALID_DATE = "valid_date";
+    public const RULE_INVALID_LOGIN="required";
     public $errors = [];
 
     abstract public function rules();
@@ -36,7 +37,8 @@ abstract class FormModel {
             self::RULE_MAX_LEN => "El largo de este campo debe ser de {max} carácteres máximo.",
             self::RULE_MATCH => "Este campo debe ser igual al campo de {match}.",
             self::RULE_UNIQUE => "El valor ingresado en {field} ya existe.",
-            self::RULE_VALID_DATE => "La fecha introducida no es válida."
+            self::RULE_VALID_DATE => "La fecha introducida no es válida.",
+            self::RULE_INVALID_LOGIN=>"Contraseña / Usuario Incorrecto."
         ]; 
     }
 
@@ -109,6 +111,9 @@ abstract class FormModel {
                 $result = Application::getInstance()->db->findOne($tablename, [$attr => $value], [$attr]);
 
                 empty($result) ? true : $this->addErrorForRule($attr, self::RULE_UNIQUE, ["field" => $this->getLabel($attr)]);
+                break;
+            case self::RULE_INVALID_LOGIN:
+                $this->addErrorForRule($attr, self::RULE_INVALID_LOGIN, ["field"=> $this->getLabel($attr)]);
                 break;
         }
     }

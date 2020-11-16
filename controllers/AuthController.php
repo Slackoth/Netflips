@@ -116,6 +116,8 @@ class AuthController extends Controller {
             $loginForm->loadData($req->getRequestBody());
 
             if ($loginForm->login()) {
+                Application::getInstance()->session->setFlashMessage("success",
+                    "La registración ha sido exitosa.");
                 Application::getInstance()->response->redirect("/login");
                 return;
             }

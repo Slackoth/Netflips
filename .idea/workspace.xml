@@ -21,6 +21,10 @@
   <component name="ChangeListManager">
     <list default="true" id="12ab1043-bc2c-4b32-b46d-1d17160ecc85" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/form/FormModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/form/FormModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/LoginForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/LoginForm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/login.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +91,7 @@
       <workItem from="1605035560801" duration="3810000" />
       <workItem from="1605416529266" duration="4992000" />
       <workItem from="1605453819198" duration="20984000" />
-      <workItem from="1605494236787" duration="998000" />
+      <workItem from="1605494236787" duration="4749000" />
     </task>
     <servers />
   </component>
@@ -111,10 +115,10 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="698" y="303" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1605472584138" />
-    <state x="748" y="312" key="FileChooserDialogImpl" timestamp="1605018253659">
+    <state x="748" y="312" key="FileChooserDialogImpl" timestamp="1605496464734">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="748" y="312" key="FileChooserDialogImpl/0.27.1920.1053@0.27.1920.1053" timestamp="1605018253659" />
+    <state x="748" y="312" key="FileChooserDialogImpl/0.27.1920.1053@0.27.1920.1053" timestamp="1605496464734" />
     <state x="696" y="275" key="NewPhpClassDialog" timestamp="1605016589405">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
@@ -123,6 +127,10 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="782" y="479" key="NewPhpFileDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1605471045093" />
+    <state x="560" y="290" key="Vcs.Push.Dialog.v2" timestamp="1605495444753">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="560" y="290" key="Vcs.Push.Dialog.v2/0.27.1920.1053@0.27.1920.1053" timestamp="1605495444753" />
     <state x="0" y="27" width="739" height="703" key="dock-window-1" timestamp="1605024788247">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
