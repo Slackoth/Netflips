@@ -11,7 +11,12 @@ abstract class FormModel {
     public const RULE_MATCH = "match";
     public const RULE_UNIQUE = "unique";
     public const RULE_VALID_DATE = "valid_date";
-    public const RULE_INVALID_LOGIN="required";
+    /*public const RULE_INVALID_LOGIN="required";*/
+    public const RULE_NEXT_CHAR_REPEATED = "next_char_repeated";
+    public const RULE_UPPERCASE_CHAR = "capital_char";
+    public const RULE_LOWERCASE_CHAR = "lowercase_char";
+    public const RULE_NUMBER_CHAR = "number_char";
+    public const RULE_SPECIAL_CHAR = "special_char";
     public $errors = [];
 
     abstract public function rules();
@@ -25,7 +30,6 @@ abstract class FormModel {
     }
 
     public function getLabel($attr) {
-        //echo var_dump($attr);
         return $this->labels()[$attr] ?? $attr;
     }
 
@@ -38,7 +42,12 @@ abstract class FormModel {
             self::RULE_MATCH => "Este campo debe ser igual al campo de {match}.",
             self::RULE_UNIQUE => "El valor ingresado en {field} ya existe.",
             self::RULE_VALID_DATE => "La fecha introducida no es válida.",
-            self::RULE_INVALID_LOGIN=>"Contraseña / Usuario Incorrecto."
+            /*self::RULE_INVALID_LOGIN => "Contraseña / Usuario Incorrecto.",*/
+            self::RULE_NEXT_CHAR_REPEATED => "Este campo no permite repetición de carácteres consecutivos.",
+            self::RULE_UPPERCASE_CHAR => "El minímo de mayúsculas debe ser de {min}.",
+            self::RULE_LOWERCASE_CHAR => "El minímo de minúsculas debe ser de {min}.",
+            self::RULE_NUMBER_CHAR => "El minímo de números debe ser de {min}.",
+            self::RULE_SPECIAL_CHAR => "El minímo de carácteres especiales debe ser de {min}."
         ]; 
     }
 
@@ -112,10 +121,54 @@ abstract class FormModel {
 
                 empty($result) ? true : $this->addErrorForRule($attr, self::RULE_UNIQUE, ["field" => $this->getLabel($attr)]);
                 break;
-            case self::RULE_INVALID_LOGIN:
-                $this->addErrorForRule($attr, self::RULE_INVALID_LOGIN, ["field"=> $this->getLabel($attr)]);
+
+            // case self::RULE_INVALID_LOGIN:
+            //     $this->addErrorForRule($attr, self::RULE_INVALID_LOGIN, ["field"=> $this->getLabel($attr)]);
+            //     break;
+            
+            case self::RULE_NEXT_CHAR_REPEATED:
+                for($i = 0; $i < strlen($value); $i++)
+                    if($value[$i] === $value[$i + 1]) {
+                        $this->addErrorForRule($attr, self::RULE_NEXT_CHAR_REPEATED);
+                        break;
+                    }
                 break;
+            
+            case self::RULE_UPPERCASE_CHAR:
+            case self::RULE_LOWERCASE_CHAR:
+            case self::RULE_SPECIAL_CHAR:
+                $this->checkString($ruleName, $value, $rule["min"]) === true ? true : $this->addErrorForRule($attr, $ruleName, $rule);
+                
         }
+    }
+
+    private function checkString($ruleName, $str, $min) {
+        $count = 0;
+
+        for($i = 0; $i < strlen($str); $i++) {
+            switch($ruleName) {
+                case self::RULE_UPPERCASE_CHAR:
+                    $count += (ctype_upper($str[$i]) === true ? 1 : 0);
+                    break;
+                
+                case self::RULE_LOWERCASE_CHAR:
+                    $count += (ctype_lower($str[$i]) === true ? 1 : 0);
+                    break;
+                
+                case self::RULE_NUMBER_CHAR:
+                    $count += (is_numeric($str[$i]) === true ? 1 : 0);
+                    break;
+                
+                case self::RULE_SPECIAL_CHAR:
+                    $count += (preg_match('/[^a-zA-Z\d]/', $str[$i]) === 1 ? 1 : 0);
+                    break;
+            }
+        }
+
+        if($count >= $min)
+            return true;
+        else
+            return false;
     }
 }
 ?>

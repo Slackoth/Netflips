@@ -31,13 +31,26 @@ class RegisterForm extends FormModel {
                 [
                     self::RULE_MAX_LEN,
                     "max" => 24
+                ],
+                self::RULE_NEXT_CHAR_REPEATED, 
+                [
+                    self::RULE_UPPERCASE_CHAR,
+                    "min" => 1
+                ],
+                [
+                    self::RULE_LOWERCASE_CHAR,
+                    "min" => 1
+                ],
+                [
+                    self::RULE_SPECIAL_CHAR,
+                    "min" => 1
                 ]
             ],
             "confirmPassword" => [self::RULE_REQUIRED, 
                 [
                     self::RULE_MATCH,
                     "match" => "password"
-                ]
+                ],
             ],
             "birthdate" => [self::RULE_VALID_DATE]
         ];

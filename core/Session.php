@@ -8,6 +8,15 @@ class Session {
 
     public function __construct() {
         session_start();
+        $timestamp = time();
+        
+        if (isset($_SESSION['discard_after']) && $timestamp > $_SESSION['discard_after']) {
+            session_unset();
+            session_destroy();
+        }
+        
+        $_SESSION['discard_after'] = $timestamp + 900;
+
         $flashMessages = $_SESSION[self::FLASH_KEY] ?? [];
 
         foreach($flashMessages as $key => &$flashMessage) 

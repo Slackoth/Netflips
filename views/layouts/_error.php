@@ -28,9 +28,9 @@
                         <?php
 
                         if(isset($_POST['Logout'])) {
+                            session_unset();
                             session_destroy();
                             Application::getInstance()->response->redirect('/login');
-
                         }
                         ?>
                         <form method="post">
