@@ -9,7 +9,7 @@ class SelectBirthdateField extends BaseField {
     
     public function __construct($formModel, $attr) {
         $this->days = range(1, 31);
-        $this->years = range(2020, 1900);
+        $this->years = range(2002, 1900);
         parent::__construct($formModel, $attr);
     }
 
